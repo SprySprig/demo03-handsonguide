@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded)
             {
+                Rigidbody2D rigidBody2D = this.GetComponent<Rigidbody2D>();
 				rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, 0);
 				rigidBody2D.AddForce(new Vector2(0, jumpForce));
             }
@@ -42,7 +43,8 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayers);
 
         float move = Input.GetAxis("Horizontal");
-        rigidBody2D.velocity = new Vector2(move * maxSpeed, rigidBody2D.velocity);
+        Rigidbody2D rigidBody2D = this.GetComponent<Rigidbody2D>();
+        rigidBody2D.velocity = new Vector2(move * maxSpeed, rigidBody2D.velocity.y);
 
         if ((move > 0.0f && !isFacingRight) || (move < 0.0f && isFacingRight))
         {
